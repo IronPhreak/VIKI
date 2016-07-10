@@ -37,15 +37,14 @@ class Server(WebSocketServerProtocol):
         logger.info("Query: " + message)
 
         # Query it
-        answer = operater(message)
-        from Plugins.AutoRemote.plugin import post
-        post(answer)
+        answer = operator(message)
+        output(answer)
 
 
-def operater(query):
+def operator(query):
     try:
         q = query.split(' ')
-        logger.info("Querying Plugins")
+        logger.info("Querying Plugins: " + q[0])
 
         # Create plugin manager object
         simplepluginmanager = PluginManager()
@@ -53,14 +52,13 @@ def operater(query):
         # Gain plugin information
         simplepluginmanager.setPluginPlaces(["Plugins"])
         simplepluginmanager.collectPlugins()
-
         for pluginInfo in simplepluginmanager.getAllPlugins():
             if str(pluginInfo.name).lower() == q[0].lower():
-                query = query.replace(q[0] + " ", "")
+                logger.info("")
                 return pluginInfo.plugin_object.task(query)
     except Exception as exc:
         logger.error(exc.args)
-        return "Error in choice"
+        return "Error in operator"
 
 
 def detect_plugins():
@@ -90,7 +88,7 @@ def get_key(key_id):
 def output(text):
     try:
         print(text)
-        logger.info("output: text")
+        logger.info("Output: text")
         # AutoRemote
         from Plugins.AutoRemote.plugin import post
         post(text)
@@ -159,6 +157,6 @@ if __name__ == "__main__":
 
     factory = WebSocketServerFactory()
     factory.protocol = Server
-
     reactor.listenTCP(9000, factory)
+    output("Server is up")
     reactor.run()
