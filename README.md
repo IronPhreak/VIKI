@@ -40,18 +40,18 @@ At the moment, not much. currently I have VIKI running on my RaspberryPi 3 with 
 
 # FAQ
 
-1. How do you communicate with VIKI?
+How do you communicate with VIKI?
 
 I currently have VIKI hosted on my RaspberryPi 3, which I use the module Autobahn to accept web socket messages. Using Tasker on my phone I can send a message to VIKI to kick start certain fucntions.
 
-2. Will you do voice commands?
+Will you do voice commands?
 
 I can do voice commands using Tasker and AutoVoice but it's not directly related to VIKI and the commands are not intuituve, such as "Wiki Summary Github"
 
-3. Can I help out?
+Can I help out?
 
 Sure! Whether it's using my code or giving advice. Contact me at Thomas@IronPhreak.com
 
-4. How complex do you want to make it?
+How complex do you want to make it?
 
 Tough question, as I'm fairly new to Python, I want to make it as good as I can so how complex that gets, I don't know. But I'm not one to say no to a challenge.
