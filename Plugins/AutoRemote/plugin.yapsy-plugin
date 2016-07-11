@@ -1,3 +1,4 @@
 [Core]
 name = AutoRemote
 Module = plugin
+commands = Post, Store

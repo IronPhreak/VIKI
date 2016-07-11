@@ -32,20 +32,20 @@ class Server(WebSocketServerProtocol):
         # Analyse the message
         logger.info("Incomming Message: " + payload.decode())
         source = str(payload.decode()).split("|")[0]
-        message = str(payload.decode()).split("|")[1]
+        task = str(payload.decode()).split("|")[1]
+        message = str(payload.decode()).split("|")[2]
+
+
         logger.info("Source: " + source)
-        logger.info("Query: " + message)
+        logger.info("Query: " + message.replace("|", ""))
 
         # Query it
-        answer = operator(message)
-        output(answer)
+        answer = operator(task, message)
+        output(source, answer)
 
 
-def operator(query):
+def operator(task, query):
     try:
-        q = query.split(' ')
-        logger.info("Querying Plugins: " + q[0])
-
         # Create plugin manager object
         simplepluginmanager = PluginManager()
 
@@ -53,8 +53,8 @@ def operator(query):
         simplepluginmanager.setPluginPlaces(["Plugins"])
         simplepluginmanager.collectPlugins()
         for pluginInfo in simplepluginmanager.getAllPlugins():
-            if str(pluginInfo.name).lower() == q[0].lower():
-                logger.info("")
+            if str(pluginInfo.name).lower() == task.lower():
+                logger.info("Sending Query: " + query)
                 return pluginInfo.plugin_object.task(query)
     except Exception as exc:
         logger.error(exc.args)
@@ -85,13 +85,13 @@ def get_key(key_id):
         logger.error("Error in get_key")
 
 
-def output(text):
+def output(destination, text):
     try:
-        print(text)
-        logger.info("Output: text")
+        print(destination + ": " + text)
+        logger.info("Output:\n+Destination: " + destination + "\nText: " + text)
         # AutoRemote
         from Plugins.AutoRemote.plugin import post
-        post(text)
+        post(destination, text)
     except Exception as exc:
         logger.error(exc.args)
         pass
@@ -158,5 +158,5 @@ if __name__ == "__main__":
     factory = WebSocketServerFactory()
     factory.protocol = Server
     reactor.listenTCP(9000, factory)
-    output("Server is up")
+    output("local", "Server is up")
     reactor.run()
