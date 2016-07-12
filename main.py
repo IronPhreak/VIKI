@@ -37,6 +37,7 @@ class Server(WebSocketServerProtocol):
 
 
         logger.info("Source: " + source)
+        logger.info("Task: " + task)
         logger.info("Query: " + message.replace("|", ""))
 
         # Query it
@@ -49,12 +50,14 @@ def operator(task, query):
         # Create plugin manager object
         simplepluginmanager = PluginManager()
 
+        logger.info("Sending Query: " + query)
+
         # Gain plugin information
         simplepluginmanager.setPluginPlaces(["Plugins"])
         simplepluginmanager.collectPlugins()
         for pluginInfo in simplepluginmanager.getAllPlugins():
             if str(pluginInfo.name).lower() == task.lower():
-                logger.info("Sending Query: " + query)
+                logging.info("Starting plugin: " + pluginInfo.name)
                 return pluginInfo.plugin_object.task(query)
     except Exception as exc:
         logger.error(exc.args)
@@ -158,5 +161,5 @@ if __name__ == "__main__":
     factory = WebSocketServerFactory()
     factory.protocol = Server
     reactor.listenTCP(9000, factory)
-    output("local", "Server is up")
+    output("", "Server is up")
     reactor.run()

@@ -18,9 +18,16 @@ class PluginOne(IPlugin):
 
 def post(destination, text):
     try:
-        # AutoRemote
-        url = "https://autoremotejoaomgcd.appspot.com/sendmessage?key=" + get_key(
-            destination) + "&message=VIKI=:=" + text
-        requests.post(url=url)
+        if destination is not "Local":
+            if destination is "":
+                # fallback destination
+                destination = "Phone"
+            logger.info("Destination: " + destination)
+            logger.info("Text: " + text)
+            # AutoRemote
+            url = "https://autoremotejoaomgcd.appspot.com/sendmessage?key=" + get_key(
+                destination) + "&message=VIKI=:=" + text
+            requests.post(url=url)
+            logger.info("AR Sent")
     except Exception:
         logger.error("Error: in AutoRemote" + str(Exception))
