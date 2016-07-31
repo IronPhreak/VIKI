@@ -1,0 +1,5 @@
+wikipedia
+requests
+yapsy
+twisted
+autobahn
