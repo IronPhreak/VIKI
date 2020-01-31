@@ -50,8 +50,6 @@ I can do voice commands using Tasker and AutoVoice but it's not directly related
 
 Can I help out?
 
-Sure! Whether it's using my code or giving advice. Contact me at Thomas@IronPhreak.com
-
 How complex do you want to make it?
 
 Tough question, as I'm fairly new to Python, I want to make it as good as I can so how complex that gets, I don't know. But I'm not one to say no to a challenge.
