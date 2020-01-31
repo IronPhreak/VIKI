@@ -48,7 +48,6 @@ Will you do voice commands?
 
 I can do voice commands using Tasker and AutoVoice but it's not directly related to VIKI and the commands are not intuituve, such as "Wiki Summary Github"
 
-Can I help out?
 
 How complex do you want to make it?
 
